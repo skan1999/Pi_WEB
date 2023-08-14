@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .custom-form {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 30px;
+            background-color: #007bff;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        }
+        .custom-form label {
+            color: #fff;
+        }
+        .custom-form .btn-primary {
+            background-color: #333;
+            border-color: #333;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+<section class="ftco-section ftco-no-pt bg-light">
+    <div class="container">
+        <div class="row no-gutters justify-content-center">
+            <div class="col-md-12 d-flex align-items-center justify-content-center">
+                <form method="post" class="custom-form">
+                    {% if error %}
+                        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                    {% endif %}
+
+                    {% if app.user %}
+                        <div class="mb-3">
+                            You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+                        </div>
+                    {% endif %}
+
+                    <h2 class="text-white mb-4">Please sign in</h2>
+                    <div class="form-group">
+                        <label for="inputEmail">Email</label>
+                        <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword">Password</label>
+                        <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+                    </div>
+
+                    <input type="hidden" name="_csrf_token"
+                           value="{{ csrf_token('authenticate') }}"
+                    >
+
+                    <button class="btn btn-lg btn-primary btn-block" type="submit">
+                        Sign in
+                    </button>
+                </form>
+            </div>
+        </div>
+        <div class="row no-gutters justify-content-center mt-5">
+            <div class="col-md-8">
+                <div class="services-wrap rounded bg-white p-4">
+                    <h3 class="heading-section mb-4">Better Way to Find a Ride</h3>
+                    <div class="row d-flex mb-4">
+                        <!-- Your service icons and content here -->
+                    </div>
+                    <p class="text-center"><a href="{{ path('app_register') }}" class="btn btn-primary py-3 px-4">Create your account here</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

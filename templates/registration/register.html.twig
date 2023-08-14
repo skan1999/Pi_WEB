@@ -1,0 +1,87 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .custom-form {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 30px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        }
+        .custom-form label {
+            font-weight: bold;
+            color: #333;
+        }
+        .custom-form .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+<section class="ftco-section ftco-no-pt bg-light">
+    <div class="container">
+        <div class="row no-gutters justify-content-center">
+            <div class="col-md-6">
+                {{ form_start(registrationForm, {'attr': {'class': 'custom-form'}}) }}
+                    <h2 class="text-dark mb-4">Register</h2>
+
+                    {{ form_errors(registrationForm) }}
+
+                    <div class="form-group">
+                        {{ form_label(registrationForm.nom) }}
+                        {{ form_widget(registrationForm.nom, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    
+                    <div class="form-group">
+                        {{ form_label(registrationForm.prenom) }}
+                        {{ form_widget(registrationForm.prenom, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(registrationForm.date_naissance) }}
+                        {{ form_widget(registrationForm.date_naissance, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(registrationForm.img) }}
+                        {{ form_widget(registrationForm.img) }}
+                    </div>
+                    
+                    <div class="form-group">
+                        {{ form_label(registrationForm.email) }}
+                        {{ form_widget(registrationForm.email, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(registrationForm.plainPassword) }}
+                        {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    
+                    <div class="form-group">
+                        {{ form_label(registrationForm.genre) }}
+                        {{ form_widget(registrationForm.genre) }}
+                    </div>
+                    
+                    <div class="form-group">
+                        {{ form_label(registrationForm.role) }}
+                        {{ form_widget(registrationForm.role) }}
+                    </div>
+                    
+                    <div class="form-group">
+                        {{ form_label(registrationForm.agreeTerms) }}
+                        {{ form_widget(registrationForm.agreeTerms) }}
+                    </div>
+                    
+                    
+
+                    <button type="submit" class="btn btn-lg btn-primary btn-block">Register</button>
+                {{ form_end(registrationForm) }}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
