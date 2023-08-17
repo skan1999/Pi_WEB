@@ -15,6 +15,7 @@ use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\Credentials\PasswordCredentials;
 use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
+use Symfony\Component\Security\Core\Exception\AuthenticationException;
 
 class UserAuthAuthenticator extends AbstractLoginFormAuthenticator
 {
@@ -47,10 +48,19 @@ class UserAuthAuthenticator extends AbstractLoginFormAuthenticator
         if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
             return new RedirectResponse($targetPath);
         }
-
-        // For example:
-        // return new RedirectResponse($this->urlGenerator->generate('some_route'));
-        throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
+    
+        // Check if the user is verified
+        if ($token->getUser()->getIsVerified() == 0) {
+            throw new AuthenticationException('Your account is not verified.');
+        }
+    
+        // Continue with the authentication based on other conditions
+        if ($token->getUser()->getRole() == 'Admin') {
+            return new RedirectResponse($this->urlGenerator->generate('app_dashboard'));
+        } else {
+            return new RedirectResponse($this->urlGenerator->generate('app_home'));
+        }
+       
     }
 
     protected function getLoginUrl(Request $request): string

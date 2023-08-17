@@ -24,6 +24,21 @@
 {% endblock %}
 
 {% block content %}
+{% for message in app.flashes('pus') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+		{% for message in app.flashes('notverified') %}
+            <div class="alert alert-danger">
+                {{ message }}
+            </div>
+        {% endfor %}
+		{% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
 <section class="ftco-section ftco-no-pt bg-light">
     <div class="container">
         <div class="row no-gutters justify-content-center">
@@ -56,7 +71,11 @@
                     <button class="btn btn-lg btn-primary btn-block" type="submit">
                         Sign in
                     </button>
+                    <br>
+                    <center>
+                    <a style="color:white;" href="{{ path('app_forgot_password_request') }}">Forgot your password ?</a></center>
                 </form>
+                
             </div>
         </div>
         <div class="row no-gutters justify-content-center mt-5">

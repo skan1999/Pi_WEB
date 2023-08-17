@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Reset password!{% endblock %}
+{% block content %}
+
+  {% for message in app.flashes('mailfound') %}
+    <div class="alert alert-success">
+      {{ message }}
+    </div>
+  {% endfor %}
+  {% for message in app.flashes('reset_password_error') %}
+    <div class="alert alert-danger">
+      {{ message }}
+    </div>
+  {% endfor %}
+
+  <div class="container">
+    <p>
+      {% for message in app.flashes('mailfound') %}
+        {{ message }}
+      {% endfor %}
+      {% for message in app.flashes('reset_password_error') %}
+        {{ message }}
+      {% endfor %}
+    </p>
+    <br>
+    <br>
+    <center>
+    <p>
+      Si votre email existe, vous recevrez un mail pour récupérer votre mot de passe.
+      <br>
+      {{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }}.
+    </p>
+    
+    <p>
+      Si vous n'avez rien reçu, vérifiez dans vos spams ou
+      <a href="{{ path('app_forgot_password_request') }}">réessayer maintenant</a>.
+    </p>
+    </center>
+  </div>
+
+{% endblock %}

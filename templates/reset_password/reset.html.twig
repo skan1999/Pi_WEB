@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Reset password!{% endblock %}
+ {% block content %}
+ <style>
+        .custom-form {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 30px;
+            background-color: #007bff;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        }
+        .custom-form label {
+            color: #fff;
+        }
+        .custom-form .btn-primary {
+            background-color: #333;
+            border-color: #333;
+        }
+    </style>
+
+   
+  <br>
+  <br>
+  <br>
+{{ form_start(resetForm, { 'attr': {'class': 'custom-form'} }) }}    <br>
+        
+        {{ form_row(resetForm.plainPassword,  {'attr': {'class': 'form-control'}}) }}
+        <br>
+        <button  class="btn btn-lg btn-primary btn-block">Reset password</button>
+    {{ form_end(resetForm) }}
+</div>
+
+
+  {% endblock %}
+
