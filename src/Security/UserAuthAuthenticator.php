@@ -53,6 +53,10 @@ class UserAuthAuthenticator extends AbstractLoginFormAuthenticator
         if ($token->getUser()->getIsVerified() == 0) {
             throw new AuthenticationException('Your account is not verified.');
         }
+         // Check if the user is verified
+         if ($token->getUser()->getIsBanned() == 1) {
+            throw new AuthenticationException('Your account is Banned.');
+        }
     
         // Continue with the authentication based on other conditions
         if ($token->getUser()->getRole() == 'Admin') {

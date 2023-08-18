@@ -198,6 +198,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function getDate_Naissance(): ?DateTime
+    {
+        return $this->date_naissance;
+    }
+
+    public function setDate_Naissance(DateTime $date_naissance): static
+    {
+        $this->date_naissance = $date_naissance;
+
+        return $this;
+    }
     public function getDateNaissance(): ?DateTime
     {
         return $this->date_naissance;

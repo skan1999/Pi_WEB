@@ -33,6 +33,17 @@ class SecurityController extends AbstractController
 
                 return $this->redirectToRoute('app_login');
             }
+            if ($user->getIsBanned()) {
+    
+                // Logout the user
+                $this->get('security.token_storage')->setToken(null);
+                $this->get('session')->invalidate();
+    
+                // Redirect to the login page
+                $this->addFlash('Banned', 'Your account is banned. Please check your email for more details ');
+
+                return $this->redirectToRoute('app_login');
+            }
                
 
             return $this->redirectToRoute('app_home');

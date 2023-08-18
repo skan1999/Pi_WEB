@@ -1,0 +1,90 @@
+{% extends 'baseBack.html.twig' %}
+
+{% block title %}Users List{% endblock %}
+
+{% block content %}                 
+
+    <h1 align = 'center'>Users List</h1>
+    <div align = 'center'>
+    <a href="{{ path('app_adduser') }}">
+    <button type="button" class="btn btn-primary btn-rounded btn-icon"> Create Admin </button>
+    </a>
+    </div>
+
+    
+
+    <div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+               
+                
+                <th>Role</th>
+                <th>Email</th>
+                <th>Name</th>
+                <th>LastName</th>
+                <th>Image</th>
+                <th>Gender</th>
+                <th>BirthDate</th>
+                <th>IsBanned</th>
+                 <th>Actions</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+        {% for utilisateur in utilisateurs %}
+            <tr>
+               
+                
+                <td>{{ utilisateur.role }}</td>
+                <td>{{ utilisateur.email }}</td>
+                <td>{{ utilisateur.nom }}</td>
+                <td>{{ utilisateur.prenom }}</td>
+                <td><img src="{{ asset('' ~ utilisateur.img) }}" alt="User Image" height="200" width="250"></td>
+                <td>{{ utilisateur.genre }}</td>
+                <td>{{ utilisateur.date_naissance|date("Y-m-d")}}</td>                
+                
+                 {% if utilisateur.isBanned == 0 %} 
+                <td> No</td>
+                {% endif %}
+                {% if utilisateur.isBanned == 1 %}
+                <td> Yes</td>
+                {% endif %}
+                 <td>
+                    <a href="{{path('app_show',{'id' : utilisateur.id })}}">
+                    <button type="button" class="btn btn-primary btn-rounded btn-fw">show</button>
+                    </a>
+                    <br>
+                    <br>
+                    <a href="{{path('app_edit',{'id' : utilisateur.id })}}">
+                    <button type="button" class="btn btn-warning btn-rounded btn-fw">edit</button>
+                    </a>
+                    {% if utilisateur.isBanned == 0 %} 
+                    <a href="{{path('app_ban', {'id': utilisateur.id}) }}">
+<button type="button" class="btn btn-custom-red btn-rounded-red btn-fw">Ban</button>
+{% endif %}
+{% if utilisateur.isBanned == 1 %}
+<a href="{{path('app_unban', {'id': utilisateur.id}) }}">
+<button type="button" class="btn btn-custom-red btn-rounded-red btn-fw">Unban</button>
+{% endif %}
+<style>
+.btn-custom-red {
+    background-color: red;
+    color: white; /* or any other suitable text color */
+    /* Add any other styles you want */
+}
+
+</style>
+                    </a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="20">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    </div>
+    
+{% endblock %}
